@@ -1,39 +1,52 @@
-const { Kafka } = require("kafkajs");
+const git = require("./services/useGithub");
+const kafka = require("./services/useKafka");
 
-const kafka = new Kafka({
-  clientId: "my-app",
-  brokers: ["pkc-zpjg0.eu-central-1.aws.confluent.cloud:9092"],
-  ssl: true,
-  sasl: {
-    mechanism: "plain",
-    username: "username",
-    password: "password",
-  },
-});
+const userName = "ArmandoXheka";
+// Michele-x98, flaviopopoff,ArmandoXheka
 
-const body = {
-  name: "amrando",
-  surname: "xheka",
-  age: "22",
-  city: "Prishtina",
-  country: "Kosovo",
-  complex: {
-    name: "amrando",
-    surname: "xheka",
-    age: "22",
-    city: "Prishtina",
-    country: "Kosovo",
-  },
-};
-const producer = kafka.producer();
-async function run() {
-  await producer.connect();
-  await producer.send({
-    topic: "test",
-    messages: [{ key: "22", value: JSON.stringify(body) }],
-  });
+let userPropertiesToGet = ["name", "login", "bio", "avatar_url"];
+let reposPropertiesToGet = ["name", "description", "url", "created_at", "stars", "forks", "language", "open_issues", "topics", "license"];
+let followerPropertiesToGet = ["login", "id", "type"];
+let followingPropertiesToGet = ["login", "id", "type"];
 
-  await producer.disconnect();
+// FUNCTION THAT SELECTS ONLY THE FIELD REQUIRED
+// IF VALUE ISN'T INSIDE THE OBJECT IT PASS AWAY WITH NO ERRORS
+function pickOnlySelectedValue(obj, ...props) {
+	return props.reduce(function (result, prop) {
+		if (obj[prop]) result[prop] = obj[prop];
+		return result;
+	}, {});
 }
 
-run().catch(console.error);
+// GETUSER AND SELECT FIELDS REQUESTED
+const getUser = async (username) => {
+	let res = await git.fetchGetGithubUser(username);
+	return pickOnlySelectedValue(res, ...userPropertiesToGet);
+};
+
+const getUserRepos = async (username) => {
+	let res = await git.fetchGetGithubUserRepos(username);
+	return res.map((el) => pickOnlySelectedValue(el, ...reposPropertiesToGet));
+};
+
+const getFollowers = async (username) => {
+	let res = await git.fetchGetGithubUserFollowers(username);
+	return res.map((el) => pickOnlySelectedValue(el, ...followerPropertiesToGet));
+};
+
+const getFollowings = async (username) => {
+	let res = await git.fetchGetGithubUserFollowings(username);
+	return res.map((el) => pickOnlySelectedValue(el, ...followingPropertiesToGet));
+};
+
+// INIT
+const init = async (username) => {
+	const promises = [getUser(username), getUserRepos(username), getFollowers(username), getFollowings(username)];
+	let [user, repos, followers, followings] = await Promise.all(promises);
+	repos.forEach((element) => (element.login = user.login));
+
+	let topic = "pippo";
+	kafka.runKafka(topic, user, repos, followers, followings);
+};
+
+init(userName);

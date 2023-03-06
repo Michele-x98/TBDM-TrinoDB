@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "kafkajs": "^2.2.3"
+    "kafkajs": "^2.2.3",
+    "node-fetch": "^3.3.0",
+    "uuidv4": "^6.2.13"
   }
 }
