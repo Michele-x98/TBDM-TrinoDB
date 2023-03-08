@@ -1,12 +1,15 @@
 version: "3.6"
 networks:
-  host:
-    driver: host
+  default:
+    external:
+      name: host
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:7.2.2
     hostname: zookeeper
     container_name: zookeeper
+    networks:
+      - host
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -15,6 +18,8 @@ services:
     image: confluentinc/cp-kafka:7.2.2
     container_name: broker
     hostname: broker
+    networks:
+      - host
     ports:
       - 29092:29092
       - 9092:9092
@@ -41,6 +46,8 @@ services:
       - 35000:35000
       - 8083:8083
     hostname: connect
+    networks:
+      - host
     container_name: connect
     depends_on:
       - zookeeper
@@ -69,6 +76,8 @@ services:
 
   rest-proxy:
     image: confluentinc/cp-kafka-rest:7.2.2
+    networks:
+      - host
     depends_on:
       - zookeeper
       - broker
@@ -83,6 +92,8 @@ services:
 
   schema-registry:
     image: confluentinc/cp-schema-registry:7.2.2
+    networks:
+      - host
     hostname: schema-registry
     container_name: schema-registry
     depends_on:
@@ -95,6 +106,8 @@ services:
 
   mongo:
     image: mongo
+    networks:
+      - host
     container_name: mongodb
     ports:
       - 27017:27017
@@ -107,6 +120,8 @@ services:
 
   trinodb:
     image: trinodb/trino
+    networks:
+      - host
     ports:
       - 8080:8080
     volumes:
