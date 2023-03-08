@@ -4,7 +4,6 @@ services:
     image: confluentinc/cp-zookeeper:7.2.2
     hostname: zookeeper
     container_name: zookeeper
-    network_mode: "host"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -12,15 +11,15 @@ services:
   broker:
     image: confluentinc/cp-kafka:7.2.2
     container_name: broker
-    hostname: broker
-    network_mode: "host"
+    ports:
+      - "29092:29092"
     depends_on:
       - zookeeper
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
-      KAFKA_LISTENERS: LISTENER_1://broker:29092,LISTENER_2://localhost:9092
-      KAFKA_ADVERTISED_LISTENERS: LISTENER_1://broker:29092,LISTENER_2://broker:9092
+      KAFKA_LISTENERS: LISTENER_1://localhost:29092,LISTENER_2://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: LISTENER_1://localhost:29092,LISTENER_2://localhost:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_1:PLAINTEXT,LISTENER_2:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_1
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
@@ -33,16 +32,17 @@ services:
     build:
       context: .
       dockerfile: connect.Dockerfile
+    ports:
+      - "35000:35000"
     hostname: connect
     container_name: connect
-    network_mode: "host"
     depends_on:
       - zookeeper
       - broker
     environment:
       KAFKA_JMX_PORT: 35000
-      KAFKA_JMX_HOSTNAME: broker
-      CONNECT_BOOTSTRAP_SERVERS: "broker:29092"
+      KAFKA_JMX_HOSTNAME: localhost
+      CONNECT_BOOTSTRAP_SERVERS: "localhost:29092"
       CONNECT_REST_ADVERTISED_HOST_NAME: connect
       CONNECT_REST_PORT: 8083
       CONNECT_GROUP_ID: connect-cluster-group
@@ -69,30 +69,29 @@ services:
       - schema-registry
     hostname: rest-proxy
     container_name: rest-proxy
-    network_mode: "host"
     environment:
       KAFKA_REST_HOST_NAME: rest-proxy
-      KAFKA_REST_BOOTSTRAP_SERVERS: "broker:29092"
+      KAFKA_REST_BOOTSTRAP_SERVERS: "localhost:29092"
       KAFKA_REST_LISTENERS: "http://0.0.0.0:8082"
       KAFKA_REST_SCHEMA_REGISTRY_URL: "http://schema_registry:8081"
 
   schema-registry:
     image: confluentinc/cp-schema-registry:7.2.2
     hostname: schema-registry
-    network_mode: "host"
     container_name: schema-registry
     depends_on:
       - broker
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
-      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: "broker:29092"
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: "localhost:29092"
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: "zookeeper:2181"
       SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
 
   mongo:
     image: mongo
     container_name: mongodb
-    network_mode: "host"
+    ports:
+      - 27017:27017
     command: --replSet rs0 --oplogSize 128
     depends_on:
       - zookeeper
@@ -102,8 +101,7 @@ services:
 
   trinodb:
     image: trinodb/trino
-    network_mode: "host"
+    ports:
+      - 8080:8080
     volumes:
       - ./etc:/etc/trino/catalog
-
-
