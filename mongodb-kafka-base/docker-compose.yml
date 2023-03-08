@@ -11,15 +11,17 @@ services:
   broker:
     image: confluentinc/cp-kafka:7.2.2
     container_name: broker
+    hostname: broker
     ports:
-      - "29092:29092"
+      - 29092:29092
+      - 9092:9092
     depends_on:
       - zookeeper
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
-      KAFKA_LISTENERS: LISTENER_1://localhost:29092,LISTENER_2://localhost:9092
-      KAFKA_ADVERTISED_LISTENERS: LISTENER_1://localhost:29092,LISTENER_2://localhost:9092
+      KAFKA_LISTENERS: LISTENER_1://broker:29092,LISTENER_2://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: LISTENER_1://broker:29092,LISTENER_2://broker:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_1:PLAINTEXT,LISTENER_2:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_1
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
@@ -33,7 +35,8 @@ services:
       context: .
       dockerfile: connect.Dockerfile
     ports:
-      - "35000:35000"
+      - 35000:35000
+      - 8083:8083
     hostname: connect
     container_name: connect
     depends_on:
@@ -41,8 +44,8 @@ services:
       - broker
     environment:
       KAFKA_JMX_PORT: 35000
-      KAFKA_JMX_HOSTNAME: localhost
-      CONNECT_BOOTSTRAP_SERVERS: "localhost:29092"
+      KAFKA_JMX_HOSTNAME: broker
+      CONNECT_BOOTSTRAP_SERVERS: "broker:29092"
       CONNECT_REST_ADVERTISED_HOST_NAME: connect
       CONNECT_REST_PORT: 8083
       CONNECT_GROUP_ID: connect-cluster-group
@@ -71,7 +74,7 @@ services:
     container_name: rest-proxy
     environment:
       KAFKA_REST_HOST_NAME: rest-proxy
-      KAFKA_REST_BOOTSTRAP_SERVERS: "localhost:29092"
+      KAFKA_REST_BOOTSTRAP_SERVERS: "broker:29092"
       KAFKA_REST_LISTENERS: "http://0.0.0.0:8082"
       KAFKA_REST_SCHEMA_REGISTRY_URL: "http://schema_registry:8081"
 
@@ -83,7 +86,7 @@ services:
       - broker
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
-      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: "localhost:29092"
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: "broker:29092"
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: "zookeeper:2181"
       SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
 
