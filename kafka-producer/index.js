@@ -73,7 +73,7 @@ const init = async (username) => {
 // create a new producer that connect to the kafka broker on 51.103.220.68:9092
 const producer = new Kafka({
   clientId: "my-app",
-  brokers: ["broker:29092"],
+  brokers: ["51.103.220.68:9092"],
 }).producer();
 
 const test = async () => {
