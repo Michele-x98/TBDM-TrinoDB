@@ -1,10 +1,10 @@
 version: "3.6"
-network_mode: "host"
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:7.2.2
     hostname: zookeeper
     container_name: zookeeper
+    network_mode: "host"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -13,9 +13,7 @@ services:
     image: confluentinc/cp-kafka:7.2.2
     container_name: broker
     hostname: broker
-    ports:
-      - 29092:29092
-      - 9092:9092
+    network_mode: "host"
     depends_on:
       - zookeeper
     environment:
@@ -35,11 +33,9 @@ services:
     build:
       context: .
       dockerfile: connect.Dockerfile
-    ports:
-      - 35000:35000
-      - 8083:8083
     hostname: connect
     container_name: connect
+    network_mode: "host"
     depends_on:
       - zookeeper
       - broker
@@ -73,6 +69,7 @@ services:
       - schema-registry
     hostname: rest-proxy
     container_name: rest-proxy
+    network_mode: "host"
     environment:
       KAFKA_REST_HOST_NAME: rest-proxy
       KAFKA_REST_BOOTSTRAP_SERVERS: "broker:29092"
@@ -82,6 +79,7 @@ services:
   schema-registry:
     image: confluentinc/cp-schema-registry:7.2.2
     hostname: schema-registry
+    network_mode: "host"
     container_name: schema-registry
     depends_on:
       - broker
@@ -94,8 +92,7 @@ services:
   mongo:
     image: mongo
     container_name: mongodb
-    ports:
-      - 27017:27017
+    network_mode: "host"
     command: --replSet rs0 --oplogSize 128
     depends_on:
       - zookeeper
@@ -105,7 +102,8 @@ services:
 
   trinodb:
     image: trinodb/trino
-    ports:
-      - 8080:8080
+    network_mode: "host"
     volumes:
       - ./etc:/etc/trino/catalog
+
+
