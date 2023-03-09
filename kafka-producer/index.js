@@ -57,38 +57,17 @@ const getFollowings = async (username) => {
 const init = async (username) => {
   const promises = [
     getUser(username),
-    getUserRepos(username),
-    getFollowers(username),
-    getFollowings(username),
+    // getUserRepos(username),
+    // getFollowers(username),
+    // getFollowings(username),
   ];
-  let [user, repos, followers, followings] = await Promise.all(promises);
-  repos.forEach((element) => (element.login = user.login));
+  let [user] = await Promise.all(promises);
+  // repos.forEach((element) => (element.login = user.login));
 
-  let topic = "pippo";
-  kafka.runKafka(topic, user, repos, followers, followings);
+  let topic = "users";
+
+  console.log(user);
+  kafka.runKafka(topic, user);
 };
 
-// init(userName);
-
-// create a new producer that connect to the kafka broker on 51.103.220.68:9092
-const producer = new Kafka({
-  clientId: "my-app",
-  brokers: ["51.103.220.68:9092"],
-}).producer();
-
-const test = async () => {
-  await producer.connect();
-  await // send a message to the topic "users"
-  producer.send({
-    topic: "users",
-    messages: [
-      {
-        key: "user1",
-        value: JSON.stringify({ name: "Armando", surname: "Xheka" }),
-      },
-    ],
-  });
-  await producer.disconnect();
-};
-
-test();
+init(userName);
