@@ -29,10 +29,25 @@ const runKafka = async (topic, ...newMessages) => {
   console.log(messages.length);
 
   await producer.connect();
-  await producer.send({
-    topic: topic,
-    messages: messages,
-  });
+
+  if (messages.length > 100) {
+    let i,
+      j,
+      temparray,
+      chunk = 100;
+    for (i = 0, j = messages.length; i < j; i += chunk) {
+      temparray = messages.slice(i, i + chunk);
+      await producer.send({
+        topic: topic,
+        messages: temparray,
+      });
+    }
+  } else {
+    await producer.send({
+      topic: topic,
+      messages: messages,
+    });
+  }
 
   await producer.disconnect();
 };
