@@ -1,20 +1,20 @@
 # Start the docker containers.
-docker-compose up -d
+sudo docker-compose up -d
 
 # Go to the Kafka Connect container.
-docker exec -it kafka bash
+sudo docker exec -it kafka bash
 
 # Set KAFKA_HOME variable to the Kafka installation directory.
-KAFKA_HOME=/opt/kafka
+export KAFKA_HOME=/opt/kafka
 
 # Create users topic in Kafka.
-$KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper 51.103.220.68:2181 --replication-factor 1 --partitions 1 --topic users
+$KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic users
 
 # Create repos topic in Kafka.
-$KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper 51.103.220.68:2181 --replication-factor 1 --partitions 1 --topic repos
+$KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic repos
 
 # Check the topics.
-$KAFKA_HOME/bin/kafka-topics.sh --zookeeper  51.103.220.68:2181 --describe
+$KAFKA_HOME/bin/kafka-topics.sh --zookeeper  zookeeper:2181 --describe
 
 # Download the MongoDB connector.
 wget https://d1i4a15mxbxib1.cloudfront.net/api/plugins/mongodb/kafka-connect-mongodb/versions/1.9.1/mongodb-kafka-connect-mongodb-1.9.1.zip
@@ -33,8 +33,7 @@ apk add nano
 
 # Edit the Kafka Connect configuration file.
 nano /opt/kafka/config/connect-distributed.properties
-uncomment plugins..
-add plugin.path=/opt/kafka/plugins
+# Concat to "plugin.path" the following string: ",/opt/kafka/plugins"
 
 # Start Kafka Connect.
 $KAFKA_HOME/bin/connect-distributed.sh $KAFKA_HOME/config/connect-distributed.properties
@@ -89,3 +88,6 @@ curl -s "http://localhost:8083/connectors/mongo-sink-repos/status"
 # [OPTIONAL] Consumer to check the data in the topics:
 $KAFKA_HOME/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic users --from-beginning
 $KAFKA_HOME/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic repos --from-beginning
+
+# To shut down the containers.
+sudo docker-compose down
