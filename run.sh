@@ -227,7 +227,7 @@ echo "KAFKA CONFIG FILE - PLUGIN PATH ${GREEN}SETTED${NONE}.\n"
 # Start Kafka Connect.
 echo "${YELLOW}START KAFKA CONNECTOR${NONE}.\n"
 # run a bash shell inside the kafka container and start the Kafka Connect service.
-docker exec kafka bash -c "\$KAFKA_HOME/bin/connect-distributed.sh \$KAFKA_HOME/config/connect-distributed.properties" &
+docker exec kafka bash -c "\$KAFKA_HOME/bin/connect-distributed.sh \$KAFKA_HOME/config/connect-distributed.properties &> /dev/null" &
 
 sleep 10
 
