@@ -206,7 +206,9 @@ echo "🔍 CHECK ${YELLOW}TOPICS${NONE}."
 kafka_bash "\$KAFKA_HOME/bin/kafka-topics.sh --zookeeper  zookeeper:2181 --describe"
 
 # Install nano with apt.
+echo "📥 ${YELLOW}INSTALLING NANO AND UNZIP.${NONE}"
 kafka_bash "apt-get update && apt-get -y install nano && apt-get install unzip" 10
+
 
 GET_CONNECTOR="wget https://d1i4a15mxbxib1.cloudfront.net/api/plugins/mongodb/kafka-connect-mongodb/versions/1.9.1/mongodb-kafka-connect-mongodb-1.9.1.zip && unzip mongodb-kafka-connect-mongodb-1.9.1.zip"
 # Copy the connector to the Kafka Connect plugins directory.
@@ -228,13 +230,16 @@ echo "KAFKA CONFIG FILE - PLUGIN PATH ${GREEN}SETTED${NONE}.\n"
 echo "${YELLOW}START KAFKA CONNECTOR${NONE}.\n"
 # run a bash shell inside the kafka container and start the Kafka Connect service.
 docker exec kafka bash -c "\$KAFKA_HOME/bin/connect-distributed.sh \$KAFKA_HOME/config/connect-distributed.properties &> /dev/null" &
-
 sleep 10
+echo "✅ KAFKA CONNECTOR ${GREEN}UP${NONE} AND ${GREEN}RUNNING${NONE} ON PORT ${BLUE}8083${NONE}.\n"
+sleep 2
 
 # Check the Kafka Connect REST API.
 # curl localhost:8083/ | jq
 # curl localhost:8083/connector-plugins | jq
 # curl localhost:8083/connectors
+
+echo "🔍${YELLOW}CHECK CONNECTORS${NONE}."
 docker exec -it kafka bash -c "curl localhost:8083/connector-plugins | jq"
 sleep 5
 
