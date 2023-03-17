@@ -1,3 +1,7 @@
+# Get Host IP.
+export HOST_IP="`(ifconfig en0 || ifconfig eth0) | grep inet | grep -oE "inet [0-9]+.[0-9]+.[0-9]+.[0-9]+" | awk '{print $2}'`"
+
+
 GREEN='\033[1;32m'
 BLUE='\033[1;34m'
 YELLOW='\033[1;33m'
@@ -85,8 +89,10 @@ create_mongodb_connectors() {
   # for each topic, create a connector.
   for topic in "${topics[@]}"; do
     echo "📡 CREATING MONGODB CONNECTOR FOR TOPIC ${BLUE}$topic${NONE}."
-    # delete the connector if it already exists.
-    kafka_bash "curl -X DELETE http://localhost:8083/connectors/mongo-sink-$topic" 2
+    
+    # Delete the connector if it already exists.
+    # kafka_bash "curl -X DELETE http://localhost:8083/connectors/mongo-sink-$topic" 2
+
     # Create the MongoDB connector configuration file and add the content to the file.
     kafka_bash """echo '''{
       \"name\": \"mongo-sink-$topic\",
@@ -111,7 +117,7 @@ create_mongodb_connectors() {
       sleep 2
     done
 
-    echo "✅ CREATED MONGODB CONNECTOR FOR TOPIC ${BLUE}$topic${NONE} ${GREEN}SUCCESSFULLY${NONE}."
+    echo "\n✅ CREATED MONGODB CONNECTOR FOR TOPIC ${BLUE}$topic${NONE} ${GREEN}SUCCESSFULLY${NONE}."
     sleep 2
 
     # Check the status of the connector.
@@ -168,14 +174,13 @@ if [ "$(docker-compose ps -q)" ]; then
   done
 fi
 
-# Get host ip address.
-export HOST_IP="`(ifconfig en0 || ifconfig eth0) | grep inet | grep -oE "inet [0-9]+.[0-9]+.[0-9]+.[0-9]+" | awk '{print $2}'`"
-echo "\nHost IP: ${BLUE}$HOST_IP ${NONE}\n"
-echo "\n${GREEN} Use $HOST_IP IP to navigate through containers${NONE}\n"
+
+echo "\nHost IP: ${BLUE}$HOST_IP${NONE}\n"
+echo "\n${GREEN} Use $HOST_IP IP to navigate through containers.${NONE}\n"
 sleep 2
 
 echo "📡 ${YELLOW}STARTING CONTAINERS. ${NONE}\n"
-export HOST_IP="`(ifconfig en0 || ifconfig eth0) | grep inet | grep -oE "inet [0-9]+.[0-9]+.[0-9]+.[0-9]+" | awk '{print $2}'`" && docker-compose up -d
+docker-compose up -d
 
 # while all the containers are not up and running, wait.
 while [ -z "$(docker-compose ps -q)" ]; do
@@ -239,7 +244,7 @@ sleep 2
 # curl localhost:8083/connector-plugins | jq
 # curl localhost:8083/connectors
 
-echo "🔍${YELLOW}CHECK CONNECTORS${NONE}."
+echo "🔍 ${YELLOW}CHECK CONNECTORS${NONE}."
 docker exec -it kafka bash -c "curl localhost:8083/connector-plugins | jq"
 sleep 5
 
@@ -250,7 +255,7 @@ create_mongodb_connectors
 # $KAFKA_HOME/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic repos --from-beginning
 
 sleep 2
-echo "🔍${YELLOW}CHECK CONNECTORS${NONE}."
+echo "🔍 ${YELLOW}CHECK CONNECTORS${NONE}."
 docker exec -it kafka bash -c "curl localhost:8083/connectors" 
 
-echo "${GREEN}All Done${NONE} ✅"
+echo "\n${GREEN}All Done${NONE} ✅"
