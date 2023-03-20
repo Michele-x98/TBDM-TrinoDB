@@ -16,31 +16,31 @@ In addition to the docker-compose file, the repository contains a bash script ca
 
 The following components are included in the system:
 
-![kafkalogo.jpg](TrinoDB%209f928d87001f458db70594c4950ef9ae/kafkalogo.jpg)
+<img src="./assets/kafka.png" alt=kafkalogo.jpg height="80">
 
 - **Kafka**: is a distributed streaming platform that is used for building real-time data pipelines and streaming applications. It is designed to handle high volumes of data and provide low latency data delivery. Kafka allows for the creation of data streams that can be processed and analyzed in real-time. It is commonly used for log aggregation, clickstream analysis, fraud detection, and other real-time data processing tasks. In the TrinoDB project described in this document, Kafka is used as a messaging system for reading real-time messages to be stored in MongoDB by using a standard Kafka connector.
 
-![Apache_ZooKeeper_logo.svg.png](TrinoDB%209f928d87001f458db70594c4950ef9ae/Apache_ZooKeeper_logo.svg.png)
+<img src="./assets/zookeeper.png" alt=Apache_ZooKeeper_logo.svg.png height="80">
 
 - **Zookeeper**: is a distributed coordination service that is used to maintain configuration information, provide distributed synchronisation, and provide group services. It provides a centralised service for maintaining configuration information, naming, providing distributed synchronisation, and providing group services. ZooKeeper is used by many distributed systems to manage configuration information, maintain distributed state, and provide leadership election. In the context of the TrinoDB project described in this document, ZooKeeper is included as a component in the system architecture implemented in the project. It is used to manage the Kafka cluster and ensure that the data is replicated across all nodes in the cluster.
 
-![download.png](TrinoDB%209f928d87001f458db70594c4950ef9ae/download.png)
+<img src="./assets/mongodb.svg" alt=mongodb.png height="70">
 
 - **MongoDB**: is a cross-platform document-oriented NoSQL database program. It is classified as a NoSQL database program because it does not rely on a traditional table-based relational database structure. Instead, it uses a document-based model to store data in flexible, semi-structured JSON-like documents, making it easier and faster to manage and access data. MongoDB was designed to be scalable, performant, and easy to develop with, making it a popular choice for modern web applications and big data systems.
 
-![download.png](TrinoDB%209f928d87001f458db70594c4950ef9ae/download%201.png)
+<img src="./assets/mongo-express.png" alt=mongodb-express.png height="100">
 
 - **Mongo-Express**: is a web-based MongoDB administration tool that provides a user-friendly interface for managing MongoDB databases. It allows you to view, edit, and delete data, as well as create and manage users and indexes. In the context of the TrinoDB project described in this document, Mongo-Express is included as a component in the system architecture implemented in the project. The Mongo-Express web interface is exposed on port `8081`.
 
-![download.png](TrinoDB%209f928d87001f458db70594c4950ef9ae/download%202.png)
+<img src="./assets/kafdrop.png" alt=mongodb-express.png height="80">
 
 - **Kafdrop**: is a web-based Kafka UI that allows you to explore Kafka topics and consumer groups. It provides a user-friendly interface for monitoring Kafka topics and messages, as well as managing consumer groups. In the context of the TrinoDB project described in this document, Kafdrop is included as a component in the system architecture implemented in the project. The Kafdrop web interface is exposed on port `9000`. Here you can find all the information about Kafka broker and all the previously created topics.
 
-![download.png](TrinoDB%209f928d87001f458db70594c4950ef9ae/download%203.png)
+<img src="./assets/trino.svg" alt=trino.png height="80">
 
 - **TrinoDB**: is a distributed SQL query engine designed to query data from multiple sources. It was formerly known as PrestoDB. TrinoDB allows users to query data from various data sources such as Hive, Cassandra, and MongoDB using a single SQL query. It is optimized for running ad-hoc queries on large data sets and is particularly useful for analyzing real-time streaming data. In the context of the project described in this document, TrinoDB was used to connect to MongoDB on one side and express the analytics via standard SQL queries on the other side. TrinoDB is included as a component in the system architecture implemented in the project.
 
-![download.png](TrinoDB%209f928d87001f458db70594c4950ef9ae/download%204.png)
+<img src="./assets/jupyter.svg" alt=jupyter.png height="50">
 
 - **Jupyter Notebook**: is an open-source web application that allows for the creation and sharing of documents that contain live code, equations, visualizations, and narrative text. It supports various programming languages including Python, R, and Julia, among others. The notebook interface combines code, results, and markdown text in a single editable document, making it a popular tool for data analysis, data visualization, machine learning, and scientific computing. Jupyter Notebook is widely used in academia, industry, and government for research, education, and collaboration.
 
