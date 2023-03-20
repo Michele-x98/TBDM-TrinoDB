@@ -10,7 +10,7 @@ The implemented system for the project is composed of a docker-compose file wher
 
 In addition to the docker-compose file, the repository contains a bash script called [run.sh](http://run.sh/) that automatically creates and sets up the environment for testing the connection between Kafka, MongoDB, and TrinoDB locally through a docker container.
 
-IMAGE OF ARCHITECTURE
+![sql#presto.jpg](/assets/sql%23presto.png)
 
 ## ⚙️System Components
 
@@ -49,8 +49,8 @@ The following components are included in the system:
 ### Prerequisites
 
 - [Node & NPM](https://nodejs.org/en)
-
 - [Docker](https://www.docker.com/)
+- [Python3 & pip](https://www.python.org/)
 
 ### Installation
 
@@ -58,37 +58,42 @@ To use the system, follow these steps:
 
 1. Clone this repository to your local machine. You can do this by using the `git clone` command on your terminal or by downloading the repository as a zip file and extracting it to your desired directory.
 
-1. `git clone https://github.com/Michele-x98/TBDM-TrinoDB`
+2. `git clone https://github.com/Michele-x98/TBDM-TrinoDB`
 
-1. Once you have the repository on your local machine, navigate to the cloned directory. You can do this by opening your terminal and using the `cd` command followed by the path to the repository.
+3. Once you have the repository on your local machine, navigate to the cloned directory. You can do this by opening your terminal and using the `cd` command followed by the path to the repository.
 
-1. `cd TBDM-TrinoDB`
+4. `cd TBDM-TrinoDB`
 
-1. Make the `run.sh` script executable by applying the command `chmod +x run.sh` and run the script located in the root directory of the repository. This script will set up the necessary environment for the system to run.
+5. Make the `run.sh` script executable by applying the command `chmod +x run.sh` and run the script located in the root directory of the repository. This script will set up the necessary environment for the system to run.
 
-1. `chmod +x run.sh`
+6. `./run.sh`
 
-1. `./run.sh`
-
-1. Type the number and names of topics that you want to create over the terminal when asked.
+7. Type the number and names of topics that you want to create over the terminal when asked.
 
 You can create as much topic as you want during the setup script (at least one) and then wait until everything is set up.
 
-5. Once the environment is set up, you can access different web interface in order to check that everything is working properly:
+8. Once the environment is set up, you can access different web interface in order to check that everything is working properly:
 
-1. The **TrinoDB** web interface is exposed on port `8080`.
+9. The **TrinoDB** web interface is exposed on port `8080`.
 
-1. The **Mongo-Express** web interface is exposed on port `8081`.
+10. The **Mongo-Express** web interface is exposed on port `8081`.
 
-1. The **Kafdrop** web interface is exposed on port `9000`.
+11. The **Kafdrop** web interface is exposed on port `9000`.
 
-1. Here you’ll find all the information about Kafka broker and all the previously created topics.
+12. Here you’ll find all the information about Kafka broker and all the previously created topics.
 
-1. To start the Kafka producer, navigate to the `KafkaProducer` folder.
+13. To start the Kafka producer, navigate to the `KafkaProducer` folder.
 
 Once you have done so, you can run the command `npm install` and then `node index.js` to start the producer. The `node index.js` command will start the producer server and begin sending messages to the configured Kafka topic.
 
-7. A Jupyter Notebook file with all the necessary configurations is included in the `Jupyter` folder of the cloned repository. You can copy this file to your local machine and run it to connect to the TrinoDB query engine and query the MongoDB database. The notebook file is already configured with the correct settings and requires no additional setup. Simply open the file, run the cells, and start analysing your data!
+14. A Jupyter Notebook file with all the necessary configurations is included in the `Jupyter` folder of the cloned repository. You can copy this file to your local machine and run it to connect to the TrinoDB query engine and query the MongoDB database. The notebook file is already configured with the correct settings and requires no additional setup. Simply open the file, run the cells, and start analysing your data!
+
+    ### **Python libraries**
+
+    - **Pandas**: is a popular open-source data analysis and manipulation library for Python3. It provides data structures for efficiently storing and manipulating large and complex datasets, as well as tools for data analysis, cleaning, and transformation. Pandas is commonly used in data science, finance, social science, and many other fields.
+    - **Trino**: a Trino client for the Python3 programming language.
+    - **Plotly**: is a data visualization library that allows you to create interactive charts and graphs. It provides a variety of chart types, including scatter plots, line charts, bar charts, and more. Plotly is used in data science, business intelligence, and many other fields where data visualization is important.
+
 
 By following these steps, you will be able to use the system without any issues. If you encounter any problems, feel free to consult the documentation or seek help from the support team.
 
