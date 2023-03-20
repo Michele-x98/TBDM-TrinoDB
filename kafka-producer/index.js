@@ -85,7 +85,10 @@ const init = async () => {
 
   // FIRST ARGUMENT TOPIC NAME, SECOND ONE ARRAY OF OBJJECTS
   kafka.runKafka("users", profiles);
-  // kafka.runKafka("repos", repos);
+
+  setTimeout(() => {
+    kafka.runKafka("repos", repos);
+  }, 2000);
 };
 
 init();

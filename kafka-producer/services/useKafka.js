@@ -2,54 +2,59 @@ const { v4: uuidv4 } = require("uuid");
 const { Kafka } = require("kafkajs");
 
 const kafka = new Kafka({
-  clientId: "my-app",
-  brokers: ["192.168.1.3:9092"],
+	clientId: "my-app",
+	brokers: ["192.168.198.156:9092"],
 });
 
 const producer = kafka.producer();
 
 const runKafka = async (topic, ...newMessages) => {
-  let messages = [];
+	let messages = [];
 
-  newMessages.forEach((element) => {
-    if (Array.isArray(element)) {
-      element.forEach((message) => {
-        messages.push({
-          key: uuidv4(),
-          value: JSON.stringify(message),
-        });
-      });
-    } else {
-      messages.push({
-        key: uuidv4(),
-        value: JSON.stringify(element),
-      });
-    }
-  });
-  console.log(messages.length);
+	// ADDING KEY VALUE AS UUID
+	newMessages.forEach((element) => {
+		element.forEach((message) => {
+			messages.push({
+				key: uuidv4(),
+				value: JSON.stringify(message),
+			});
+		});
+	});
 
-  await producer.connect();
+	console.log(messages.length);
 
-  if (messages.length > 100) {
-    let i,
-      j,
-      temparray,
-      chunk = 100;
-    for (i = 0, j = messages.length; i < j; i += chunk) {
-      temparray = messages.slice(i, i + chunk);
-      await producer.send({
-        topic: topic,
-        messages: temparray,
-      });
-    }
-  } else {
-    await producer.send({
-      topic: topic,
-      messages: messages,
-    });
-  }
+	await producer.connect();
 
-  await producer.disconnect();
+	if (topic === "repos") {
+		for (let index = 0; index < 11; index++) {
+			if (messages.length > 100) {
+				let i;
+				let j;
+				let temparray;
+				let chunk = 100;
+
+				for (i = 0, j = messages.length; i < j; i += chunk) {
+					temparray = messages.slice(i, i + chunk);
+					await producer.send({
+						topic: topic,
+						messages: temparray,
+					});
+				}
+			} else {
+				await producer.send({
+					topic: topic,
+					messages: messages,
+				});
+			}
+		}
+	} else {
+		await producer.send({
+			topic: topic,
+			messages: messages,
+		});
+	}
+
+	await producer.disconnect();
 };
 
 module.exports = { runKafka };
