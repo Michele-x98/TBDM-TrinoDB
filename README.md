@@ -94,7 +94,6 @@ Once you have done so, you can run the command `npm install` and then `node inde
     - **Trino**: a Trino client for the Python3 programming language.
     - **Plotly**: is a data visualization library that allows you to create interactive charts and graphs. It provides a variety of chart types, including scatter plots, line charts, bar charts, and more. Plotly is used in data science, business intelligence, and many other fields where data visualization is important.
 
-
 By following these steps, you will be able to use the system without any issues. If you encounter any problems, feel free to consult the documentation or seek help from the support team.
 
 ## **Acknowledgments**
@@ -109,4 +108,4 @@ This project was developed as part of the course "Technologies for Big Data Mana
 
 ## Conclusion
 
-This project demonstrates the potential of using Kafka Broker and TrinoDB for managing and analysing big data. By using the implemented system, users can easily set up an environment for testing the connection between Kafka, MongoDB, and TrinoDB. Although, a simple producer is included in the project in order to demostrate the complete flow of the application from when the data are produced to when the data are analysed through Jupyter
+This project demonstrates the potential of using Kafka Broker and TrinoDB for managing and analysing big data. By using the implemented system, users can easily set up an environment for testing the connection between Kafka, MongoDB, and TrinoDB. Although, a simple producer is included in the project in order to demostrate the complete flow of the application from when the data are produced to when the data are analysed through Jupyter.
