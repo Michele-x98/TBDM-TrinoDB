@@ -71,22 +71,21 @@ To use the system, follow these steps:
 7. Type the number and names of topics that you want to create over the terminal when asked.
 
 You can create as much topic as you want during the setup script (at least one) and then wait until everything is set up.
+Once the environment is set up, you can access different web interface in order to check that everything is working properly:
 
-8. Once the environment is set up, you can access different web interface in order to check that everything is working properly:
+- The **TrinoDB** web interface is exposed on port `8080`.
 
-9. The **TrinoDB** web interface is exposed on port `8080`.
+- The **Mongo-Express** web interface is exposed on port `8081`.
 
-10. The **Mongo-Express** web interface is exposed on port `8081`.
+- The **Kafdrop** web interface is exposed on port `9000` where you’ll find all the information about Kafka broker and all the previously created topics.
 
-11. The **Kafdrop** web interface is exposed on port `9000`.
+### Data Transfer and Visualization
 
-12. Here you’ll find all the information about Kafka broker and all the previously created topics.
-
-13. To start the Kafka producer, navigate to the `KafkaProducer` folder.
+1. To start the Kafka producer, navigate to the `KafkaProducer` folder.
 
 Once you have done so, you can run the command `npm install` and then `node index.js` to start the producer. The `node index.js` command will start the producer server and begin sending messages to the configured Kafka topic.
 
-14. A Jupyter Notebook file with all the necessary configurations is included in the `Jupyter` folder of the cloned repository. You can copy this file to your local machine and run it to connect to the TrinoDB query engine and query the MongoDB database. The notebook file is already configured with the correct settings and requires no additional setup. Simply open the file, run the cells, and start analysing your data!
+2. A Jupyter Notebook file with all the necessary configurations is included in the `Jupyter` folder of the cloned repository. You can copy this file to your local machine and run it to connect to the TrinoDB query engine and query the MongoDB database. The notebook file is already configured with the correct settings and requires no additional setup. Simply open the file, run the cells, and start analysing your data!
 
     ### **Python libraries**
 
