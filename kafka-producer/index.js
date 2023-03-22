@@ -3,7 +3,12 @@ const kafka = require("./services/useKafka");
 const { Kafka } = require("kafkajs");
 const prompt = require("prompt-sync")();
 
-const mainUsers = ["ArmandoXheka", "Michele-x98", "flaviopopoff"];
+const mainUsers = [
+  "ArmandoXheka",
+  "Michele-x98",
+  "flaviopopoff",
+  "massimocallisto",
+];
 
 let userPropertiesToGet = ["name", "login", "avatar_url", "type"];
 let reposPropertiesToGet = [
