@@ -73,7 +73,7 @@ create_topics() {
  for topic in "${topics[@]}"; do
     echo "CREATING TOPIC ${BLUE}$topic${NONE}."
     # Create the topic.
-    kafka_bash "\$KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic $topic"
+    kafka_bash "\$KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 6 --topic $topic"
     # # while the topic is not created, wait.
     while [ -z "$(docker exec -it kafka bash -c "\$KAFKA_HOME/bin/kafka-topics.sh --zookeeper zookeeper:2181 --list | grep $topic")" ]; do
       echo "⏳${YELLOW}WAITING FOR TOPIC $topic TO BE CREATED.${NONE}"
