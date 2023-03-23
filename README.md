@@ -95,6 +95,15 @@ Once you have done so, you can run the command `npm install` and then `node inde
 
 By following these steps, you will be able to use the system without any issues. If you encounter any problems, feel free to consult the documentation or seek help from the support team.
 
+## **Results**
+
+Here are some results of the queries made through TrinoDB and visualized via Jupyter notebook about the most used language and most used licence of repositories:
+
+<div> 
+<img src="./assets/most_used_lang.png" alt=lang.pn>
+<img src="./assets/most_used_license.png" alt=jupyter.png>
+</div>
+
 ## **Acknowledgments**
 
 This project was developed as part of the course "Technologies for Big Data Management" at the University of Camerino by:
