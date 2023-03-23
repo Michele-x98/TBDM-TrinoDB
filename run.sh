@@ -211,8 +211,8 @@ echo "🔍 CHECK ${YELLOW}TOPICS${NONE}."
 kafka_bash "\$KAFKA_HOME/bin/kafka-topics.sh --zookeeper  zookeeper:2181 --describe"
 
 # Install nano with apt.
-echo "📥 ${YELLOW}INSTALLING NANO AND UNZIP.${NONE}"
-kafka_bash "apt-get update && apt-get -y install nano && apt-get install unzip" 10
+echo "📥 ${YELLOW}INSTALLING UNZIP.${NONE}"
+kafka_bash "apt-get update && apt-get install unzip" 10
 
 
 GET_CONNECTOR="wget https://d1i4a15mxbxib1.cloudfront.net/api/plugins/mongodb/kafka-connect-mongodb/versions/1.9.1/mongodb-kafka-connect-mongodb-1.9.1.zip && unzip mongodb-kafka-connect-mongodb-1.9.1.zip"
