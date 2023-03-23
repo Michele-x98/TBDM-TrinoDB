@@ -70,14 +70,22 @@ To use the system, follow these steps:
 
 7. Type the number and names of topics that you want to create over the terminal when asked.
 
+<img src="./assets/topic_creation.png" alt=topic.png>
+
 You can create as much topic as you want during the setup script (at least one) and then wait until everything is set up.
 Once the environment is set up, you can access different web interface in order to check that everything is working properly:
 
 - The **TrinoDB** web interface is exposed on port `8080`.
 
+<img src="./assets/trino_cluster.png" alt=trino_cluster.png>
+
 - The **Mongo-Express** web interface is exposed on port `8081`.
 
+<img src="./assets/mong-express-ui.png" alt=mongo-express-ui.png>
+
 - The **Kafdrop** web interface is exposed on port `9000` where you’ll find all the information about Kafka broker and all the previously created topics.
+
+<img src="./assets/kafdrop_ui.png" alt=kafrdop-ui.png>
 
 ### Data Transfer and Visualization
 
