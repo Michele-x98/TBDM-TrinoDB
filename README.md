@@ -77,15 +77,15 @@ Once the environment is set up, you can access different web interface in order 
 
 - The **TrinoDB** web interface is exposed on port `8080`.
 
-<img src="./assets/trino_cluster.png" alt=trino_cluster.png>
+<img src="./assets/trino_cluster.png" alt=trino_cluster.png height="300">
 
 - The **Mongo-Express** web interface is exposed on port `8081`.
 
-<img src="./assets/mong-express-ui.png" alt=mongo-express-ui.png>
+<img src="./assets/mongo-express-ui.png" alt=mongo-express-ui.png height="300">
 
 - The **Kafdrop** web interface is exposed on port `9000` where you’ll find all the information about Kafka broker and all the previously created topics.
 
-<img src="./assets/kafdrop_ui.png" alt=kafrdop-ui.png>
+<img src="./assets/kafdrop_ui.png" alt=kafrdop-ui.png height="300">
 
 ### Data Transfer and Visualization
 
