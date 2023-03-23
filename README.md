@@ -70,7 +70,7 @@ To use the system, follow these steps:
 
 7. Type the number and names of topics that you want to create over the terminal when asked.
 
-<img src="./assets/topic_creation.png" alt=topic.png>
+<img src="./assets/topic_creation.png" alt=topic.png height="400">
 
 You can create as much topic as you want during the setup script (at least one) and then wait until everything is set up.
 Once the environment is set up, you can access different web interface in order to check that everything is working properly:
