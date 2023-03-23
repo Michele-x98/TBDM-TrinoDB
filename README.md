@@ -99,9 +99,10 @@ By following these steps, you will be able to use the system without any issues.
 
 Here some results of the querys made through TrinoDB and visualizedvia Jupyter notebook about most used language and most used licence of repositories:
 
-<img src="./assets/most_used_lang.png" alt=lang.pn height="200">
-
-<img src="./assets/most_used_licence.png" alt=jupyter.png height="200">
+<div> 
+<img src="./assets/most_used_lang.png" alt=lang.pn>
+<img src="./assets/most_used_license.png" alt=jupyter.png>
+</div>
 
 ## **Acknowledgments**
 
