@@ -1,5 +1,9 @@
 # TrinoDB
 
+<div>
+<img src="./assets/trino.svg" alt=trino.png height="200">
+</div>
+
 ## 📊 About the Project
 
 This repository is related to an University project for a course called "Technology for Big Data Management" (TBDM). The main goal of the project was to analyse and study the potential of using Kafka Broker and TrinoDB to analyse real time data streaming.
