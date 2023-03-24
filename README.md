@@ -1,5 +1,9 @@
 # TrinoDB
 
+<div>
+<img src="./assets/trino.svg" alt=trino.png height="200">
+</div>
+
 ## 📊 About the Project
 
 This repository is related to an University project for a course called "Technology for Big Data Management" (TBDM). The main goal of the project was to analyse and study the potential of using Kafka Broker and TrinoDB to analyse real time data streaming.
@@ -89,11 +93,21 @@ Once the environment is set up, you can access different web interface in order 
 
 ### Data Transfer and Visualization
 
-1. To start the Kafka producer, navigate to the `KafkaProducer` folder.
+1. In order to allow the Kafka producer to fetch information from Github API, you need to add your  Github API Key inside the `TBDM-TrinoDB/kafka-producer/services/useGithub.js` file, like following:
+
+```javascript
+let headers = {
+  headers: {
+    authorization: "token ${YOUR_SECRET_TOKEN}",
+  },
+};
+```
+
+2. To start the Kafka producer, navigate to the `KafkaProducer` folder.
 
 Once you have done so, you can run the command `npm install` and then `node index.js` to start the producer. The `node index.js` command will start the producer server and begin sending messages to the configured Kafka topic.
 
-2. A Jupyter Notebook file with all the necessary configurations is included in the `Jupyter` folder of the cloned repository. You can copy this file to your local machine and run it to connect to the TrinoDB query engine and query the MongoDB database. The notebook file is already configured with the correct settings and requires no additional setup. Simply open the file, run the cells, and start analysing your data!
+3. A Jupyter Notebook file with all the necessary configurations is included in the `Jupyter` folder of the cloned repository. You can copy this file to your local machine and run it to connect to the TrinoDB query engine and query the MongoDB database. The notebook file is already configured with the correct settings and requires no additional setup. Simply open the file, run the cells, and start analysing your data!
 
     ### **Python libraries**
 
